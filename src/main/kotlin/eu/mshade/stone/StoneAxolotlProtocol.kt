@@ -53,6 +53,8 @@ class StoneAxolotlProtocol: AxolotlProtocol() {
         packetRegistry.registerPacketOut(0x08, AxolotlPacketOutEntityLocation::class)
 
 
+
+
     }
 
     override fun getAxolotlProtocolVersion(): AxolotlProtocolVersion {

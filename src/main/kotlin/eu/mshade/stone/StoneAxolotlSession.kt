@@ -6,6 +6,7 @@ import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.metadata.MetadataKeyValueBufferRegistry
 import eu.mshade.enderframe.world.World
 import eu.mshade.enderframe.world.chunk.Chunk
+import eu.mshade.enderframe.world.chunk.Section
 import eu.mshade.stone.packet.entity.AxolotlPacketOutEntityLocation
 import eu.mshade.stone.packet.player.AxolotlPacketOutInitializePlayer
 import eu.mshade.stone.packet.player.AxolotlPacketOutPlayerJoin
@@ -13,6 +14,7 @@ import eu.mshade.stone.packet.player.AxolotlPacketOutPlayerLeave
 import eu.mshade.stone.packet.world.AxolotlPacketOutChunk
 import eu.mshade.stone.packet.world.AxolotlPacketOutChunkUnload
 import eu.mshade.stone.packet.world.AxolotlPacketOutInitializeWorld
+import eu.mshade.stone.packet.world.AxolotlPacketOutSection
 import io.netty.channel.Channel
 
 class StoneAxolotlSession(channel: Channel, private val metadataKeyValueBufferRegistry: MetadataKeyValueBufferRegistry) : AxolotlSession(channel) {
@@ -40,6 +42,10 @@ class StoneAxolotlSession(channel: Channel, private val metadataKeyValueBufferRe
 
     override fun sendChunkUnload(chunk: Chunk) {
         sendPacket(AxolotlPacketOutChunkUnload(chunk))
+    }
+
+    override fun sendSection(section: Section) {
+        sendPacket(AxolotlPacketOutSection(section, metadataKeyValueBufferRegistry))
     }
 
     override fun sendInitializeWorld(world: World) {
