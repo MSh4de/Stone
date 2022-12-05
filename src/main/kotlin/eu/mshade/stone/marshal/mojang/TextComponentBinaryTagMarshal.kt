@@ -29,8 +29,8 @@ object TextComponentBinaryTagMarshal {
         val textComponent = TextComponent.of(compoundBinaryTag.getString("text"))
         deserializeTextComponentExtra(compoundBinaryTag, textComponent)
 
-        val listBinaryTag = compoundBinaryTag.getBinaryTag("extra") as ListBinaryTag
-        listBinaryTag.value.forEach{
+        val listBinaryTag = compoundBinaryTag.getBinaryTag("extra") as? ListBinaryTag
+        listBinaryTag?.value?.forEach{
             textComponent.extra.add(deserializeTextComponentExtra(it as CompoundBinaryTag))
         }
 
@@ -44,7 +44,7 @@ object TextComponentBinaryTagMarshal {
         compoundBinaryTag.putBoolean("underlined", textComponentEntry.isUnderlined)
         compoundBinaryTag.putBoolean("strikethrough", textComponentEntry.isStrikethrough)
         compoundBinaryTag.putBoolean("obfuscated", textComponentEntry.isObfuscated)
-        compoundBinaryTag.putString("color", (textComponentEntry.chatColor?: ChatColor.WHITE).code)
+        compoundBinaryTag.putString("color", (textComponentEntry.chatColor?: ChatColor.WHITE).name)
 
         textComponentEntry.hoverEvent.takeIf { it != null }?.let{
             compoundBinaryTag.putBinaryTag("hoverEvent", serializeTextHoverEvent(it))
@@ -65,7 +65,7 @@ object TextComponentBinaryTagMarshal {
         textComponentEntry.withUnderlined(compoundBinaryTag.getBoolean("underlined"))
         textComponentEntry.withStrikethrough(compoundBinaryTag.getBoolean("strikethrough"))
         textComponentEntry.withObfuscated(compoundBinaryTag.getBoolean("obfuscated"))
-        textComponentEntry.withColor(ChatColor.getByChar(compoundBinaryTag.getString("color")))
+        textComponentEntry.withColor(ChatColor.fromName(compoundBinaryTag.getString("color")?: ChatColor.WHITE.name))
 
         compoundBinaryTag.getBinaryTag("hoverEvent")?.let{
             textComponentEntry.withHoverEvent(deserializeTextHoverEvent(it as CompoundBinaryTag))
@@ -75,7 +75,7 @@ object TextComponentBinaryTagMarshal {
     }
 
     private fun deserializeTextHoverEvent(compoundBinaryTag: CompoundBinaryTag): TextHoverEvent{
-        return TextHoverEvent.from(compoundBinaryTag.getString("value"), TextHoverEventType.valueOf(compoundBinaryTag.getString("action")))
+        return TextHoverEvent.from(compoundBinaryTag.getString("value"), TextHoverEventType.valueOf(compoundBinaryTag.getString("action")!!))
     }
 
 }
