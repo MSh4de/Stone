@@ -12,7 +12,7 @@ object GameProfileBinaryTagMarshal {
 
     fun serialize(gameProfile: GameProfile): BinaryTag<*> {
         val compoundBinaryTag = CompoundBinaryTag()
-        compoundBinaryTag.putString("uuid", gameProfile.id.toString())
+        compoundBinaryTag.putString("uid", gameProfile.id.toString())
         compoundBinaryTag.putString("name", gameProfile.name)
         val propertiesBinaryTag = ListBinaryTag(BinaryTagType.COMPOUND)
         gameProfile.properties.forEach { (_, property) ->
@@ -28,7 +28,7 @@ object GameProfileBinaryTagMarshal {
         val propertiesBinaryTag = compoundBinaryTag.getBinaryTag("properties") as ListBinaryTag
 
         val gameProfile =
-            GameProfile(UUID.fromString(compoundBinaryTag.getString("uuid")), compoundBinaryTag.getString("name"))
+            GameProfile(UUID.fromString(compoundBinaryTag.getString("uid")), compoundBinaryTag.getString("name"))
         propertiesBinaryTag.value.forEach {
             gameProfile.setProperty(deserializeProperty(it))
         }
