@@ -16,7 +16,7 @@ object ChunkBinaryTagMarshal {
 
 
     fun serialize(chunk: Chunk, metadataKeyValueBufferRegistry: MetadataKeyValueBufferRegistry): CompoundBinaryTag {
-        val compoundBinaryTag: CompoundBinaryTag = ZstdCompoundBinaryTag()
+        val compoundBinaryTag = CompoundBinaryTag()
         compoundBinaryTag.putInt("x", chunk.x)
         compoundBinaryTag.putInt("z", chunk.z)
         compoundBinaryTag.putBinaryTag("biomes", ByteArrayBinaryTag(chunk.biomes))
