@@ -9,6 +9,7 @@ import eu.mshade.enderframe.world.chunk.Chunk
 import eu.mshade.enderframe.world.chunk.Section
 import eu.mshade.stone.packet.entity.AxolotlPacketOutEntityLocation
 import eu.mshade.stone.packet.player.AxolotlPacketOutInitializePlayer
+import eu.mshade.stone.packet.player.AxolotlPacketOutChatMessage
 import eu.mshade.stone.packet.player.AxolotlPacketOutPlayerJoin
 import eu.mshade.stone.packet.player.AxolotlPacketOutPlayerLeave
 import eu.mshade.stone.packet.world.AxolotlPacketOutChunk
@@ -50,6 +51,10 @@ class StoneAxolotlSession(channel: Channel, private val metadataKeyValueBufferRe
 
     override fun sendInitializeWorld(world: World) {
         sendPacket(AxolotlPacketOutInitializeWorld(world, metadataKeyValueBufferRegistry))
+    }
+
+    override fun sendChatMessage(player: Player, message: String) {
+        sendPacket(AxolotlPacketOutChatMessage(player, message))
     }
 
 }
