@@ -3,17 +3,14 @@ package eu.mshade.stone
 import eu.mshade.axolotl.protocol.AxolotlProtocol
 import eu.mshade.axolotl.protocol.AxolotlProtocolVersion
 import eu.mshade.axolotl.protocol.AxolotlSession
-import eu.mshade.enderframe.world.ParentWorldMetadata
 import eu.mshade.enderframe.world.WorldMetadataType
 import eu.mshade.enderframe.world.block.BlockMetadataType
+import eu.mshade.stone.listener.AxolotlPacketInChatMessageListener
 import eu.mshade.stone.marshal.metadata.*
 import eu.mshade.stone.packet.entity.AxolotlPacketOutEntityLocation
 import eu.mshade.stone.packet.world.AxolotlPacketOutChunk
 import eu.mshade.stone.packet.world.AxolotlPacketOutSection
-import eu.mshade.stone.packet.entity.AxolotlPacketOutSpawnEntity
-import eu.mshade.stone.packet.player.AxolotlPacketOutInitializePlayer
-import eu.mshade.stone.packet.player.AxolotlPacketOutPlayerJoin
-import eu.mshade.stone.packet.player.AxolotlPacketOutPlayerLeave
+import eu.mshade.stone.packet.player.*
 import eu.mshade.stone.packet.world.AxolotlPacketOutInitializeWorld
 import io.netty.channel.Channel
 
@@ -40,7 +37,9 @@ class StoneAxolotlProtocol: AxolotlProtocol() {
         metadataKeyValueBufferRegistry.register(BlockMetadataType.SEAMLESS, SeamlessBlockMetadataBuffer())
         metadataKeyValueBufferRegistry.register(BlockMetadataType.MULTIPLE_FACE, MultipleFaceBlockMetadataBuffer())
 
+        eventBus.subscribe(AxolotlPacketInChatMessage::class.java, AxolotlPacketInChatMessageListener())
 
+        packetRegistry.registerPacketIn(0x01, AxolotlPacketInChatMessage::class)
 
         //register all packets
         //packetRegistry.registerPacketOut(0x01, AxolotlPacketOutSpawnEntity::class)
@@ -51,8 +50,7 @@ class StoneAxolotlProtocol: AxolotlProtocol() {
         packetRegistry.registerPacketOut(0x06, AxolotlPacketOutPlayerJoin::class)
         packetRegistry.registerPacketOut(0x07, AxolotlPacketOutPlayerLeave::class)
         packetRegistry.registerPacketOut(0x08, AxolotlPacketOutEntityLocation::class)
-
-
+        packetRegistry.registerPacketOut(0x09, AxolotlPacketOutChatMessage::class)
 
 
     }
