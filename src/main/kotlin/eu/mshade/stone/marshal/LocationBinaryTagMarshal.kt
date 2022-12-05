@@ -19,7 +19,7 @@ object LocationBinaryTagMarshal {
     }
 
     fun deserialize(compoundBinaryTag: CompoundBinaryTag, worldProvider: WorldProvider): Location {
-        val world = compoundBinaryTag.getString("world")
+        val world = compoundBinaryTag.getString("world")!!
         val x = compoundBinaryTag.getDouble("x")
         val y = compoundBinaryTag.getDouble("y")
         val z = compoundBinaryTag.getDouble("z")
