@@ -7,6 +7,7 @@ import eu.mshade.enderframe.world.WorldMetadataType
 import eu.mshade.enderframe.world.block.BlockMetadataType
 import eu.mshade.stone.listener.AxolotlPacketInChatMessageListener
 import eu.mshade.stone.marshal.metadata.*
+import eu.mshade.stone.packet.AxolotlPacketOutInitialization
 import eu.mshade.stone.packet.entity.AxolotlPacketOutEntityLocation
 import eu.mshade.stone.packet.world.AxolotlPacketOutChunk
 import eu.mshade.stone.packet.world.AxolotlPacketOutSection
@@ -51,6 +52,7 @@ class StoneAxolotlProtocol: AxolotlProtocol() {
         packetRegistry.registerPacketOut(0x07, AxolotlPacketOutPlayerLeave::class)
         packetRegistry.registerPacketOut(0x08, AxolotlPacketOutEntityLocation::class)
         packetRegistry.registerPacketOut(0x09, AxolotlPacketOutChatMessage::class)
+        packetRegistry.registerPacketOut(0x0A, AxolotlPacketOutInitialization::class)
 
 
     }
