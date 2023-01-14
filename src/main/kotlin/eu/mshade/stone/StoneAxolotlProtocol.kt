@@ -1,5 +1,6 @@
 package eu.mshade.stone
 
+import eu.mshade.axolotl.protocol.AxolotlPacketIn
 import eu.mshade.axolotl.protocol.AxolotlProtocol
 import eu.mshade.axolotl.protocol.AxolotlProtocolVersion
 import eu.mshade.axolotl.protocol.AxolotlSession
@@ -9,6 +10,7 @@ import eu.mshade.stone.listener.AxolotlPacketInChatMessageListener
 import eu.mshade.stone.marshal.metadata.*
 import eu.mshade.stone.packet.AxolotlPacketOutInitialization
 import eu.mshade.stone.packet.entity.AxolotlPacketOutEntityLocation
+import eu.mshade.stone.packet.inventory.*
 import eu.mshade.stone.packet.world.AxolotlPacketOutChunk
 import eu.mshade.stone.packet.world.AxolotlPacketOutSection
 import eu.mshade.stone.packet.player.*
@@ -41,6 +43,10 @@ class StoneAxolotlProtocol: AxolotlProtocol() {
         eventBus.subscribe(AxolotlPacketInChatMessage::class.java, AxolotlPacketInChatMessageListener())
 
         packetRegistry.registerPacketIn(0x01, AxolotlPacketInChatMessage::class)
+        packetRegistry.registerPacketIn(0x02, AxolotlPacketInOpenInventory::class)
+        packetRegistry.registerPacketIn(0x03, AxolotlPacketInSetItem::class)
+        packetRegistry.registerPacketIn(0x04, AxolotlPacketInCreateInventory::class)
+
 
         //register all packets
         //packetRegistry.registerPacketOut(0x01, AxolotlPacketOutSpawnEntity::class)
@@ -53,6 +59,9 @@ class StoneAxolotlProtocol: AxolotlProtocol() {
         packetRegistry.registerPacketOut(0x08, AxolotlPacketOutEntityLocation::class)
         packetRegistry.registerPacketOut(0x09, AxolotlPacketOutChatMessage::class)
         packetRegistry.registerPacketOut(0x0A, AxolotlPacketOutInitialization::class)
+        packetRegistry.registerPacketOut(0x0B, AxolotlPacketOutOpenInventory::class)
+        packetRegistry.registerPacketOut(0x0C, AxolotlPacketOutSetItem::class)
+        packetRegistry.registerPacketOut(0x0D, AxolotlPacketOutCreateInventory::class)
 
 
     }

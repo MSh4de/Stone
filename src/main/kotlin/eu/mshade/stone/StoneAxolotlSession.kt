@@ -19,7 +19,7 @@ import eu.mshade.stone.packet.world.AxolotlPacketOutInitializeWorld
 import eu.mshade.stone.packet.world.AxolotlPacketOutSection
 import io.netty.channel.Channel
 
-class StoneAxolotlSession(channel: Channel, private val metadataKeyValueBufferRegistry: MetadataKeyValueBufferRegistry) : AxolotlSession(channel) {
+class StoneAxolotlSession(channel: Channel, val metadataKeyValueBufferRegistry: MetadataKeyValueBufferRegistry) : AxolotlSession(channel) {
 
 
     override fun sendInitializePlayer(player: Player) {

@@ -1,4 +1,4 @@
-package eu.mshade.stone.marshal.item
+package eu.mshade.stone.marshal.inventory
 
 import eu.mshade.enderframe.inventory.ChestInventory
 import eu.mshade.enderframe.inventory.Inventory
@@ -13,7 +13,6 @@ import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag
 import eu.mshade.mwork.binarytag.entity.ListBinaryTag
 import eu.mshade.stone.marshal.mojang.TextComponentBinaryTagMarshal
 import java.util.*
-import java.util.function.Supplier
 
 object InventoryBinaryTagMarshal {
 
@@ -28,7 +27,7 @@ object InventoryBinaryTagMarshal {
         val compoundBinaryTag = CompoundBinaryTag()
         compoundBinaryTag.putInt("type", inventory.inventoryKey.id)
         compoundBinaryTag.putInt("size", inventory.size)
-        compoundBinaryTag.putString("uniqueId", inventory.uniqueId.toString())
+        compoundBinaryTag.putString("uid", inventory.uniqueId.toString())
 
         if (inventory is NamedInventory){
             compoundBinaryTag.putBinaryTag("name", TextComponentBinaryTagMarshal.serialize(inventory.name))
@@ -46,7 +45,7 @@ object InventoryBinaryTagMarshal {
     fun deserialize(compoundBinaryTag: CompoundBinaryTag, metadataKeyValueBufferRegistry: MetadataKeyValueBufferRegistry): Inventory{
         val type = InventoryType.fromId(compoundBinaryTag.getInt("type"))!!
         val size = compoundBinaryTag.getInt("size")
-        val uniqueId = UUID.fromString(compoundBinaryTag.getString("uniqueId"))
+        val uniqueId = UUID.fromString(compoundBinaryTag.getString("uid"))
         val nameBinaryTag = compoundBinaryTag.getBinaryTag("name")
         val name = if (nameBinaryTag != null) TextComponentBinaryTagMarshal.deserialize(nameBinaryTag as CompoundBinaryTag) else TextComponent.empty()
         val inventory = INVENTORY_BY_ID[type]?.invoke(name, size, uniqueId) ?: NamedInventory(name, type, uniqueId)
