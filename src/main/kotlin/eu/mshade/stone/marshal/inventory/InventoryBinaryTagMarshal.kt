@@ -1,11 +1,11 @@
 package eu.mshade.stone.marshal.inventory
 
-import eu.mshade.enderframe.inventory.ChestInventory
 import eu.mshade.enderframe.inventory.Inventory
 import eu.mshade.enderframe.inventory.InventoryKey
 import eu.mshade.enderframe.inventory.InventoryType
 import eu.mshade.enderframe.inventory.NamedInventory
 import eu.mshade.enderframe.inventory.PlayerInventory
+import eu.mshade.enderframe.inventory.type.ChestInventory
 import eu.mshade.enderframe.metadata.MetadataKeyValueBufferRegistry
 import eu.mshade.enderframe.mojang.chat.TextComponent
 import eu.mshade.mwork.binarytag.BinaryTagType
@@ -19,7 +19,7 @@ object InventoryBinaryTagMarshal {
     private val INVENTORY_BY_ID = mutableMapOf<InventoryKey, (txt: TextComponent, size: Int, uniqueId: UUID) -> Inventory>()
 
     init {
-        INVENTORY_BY_ID[InventoryType.CHEST] = {txt, size, uniqueId -> ChestInventory(txt, size, uniqueId)}
+        INVENTORY_BY_ID[InventoryType.CHEST] = {txt, size, uniqueId -> ChestInventory(txt, size, uniqueId) }
         INVENTORY_BY_ID[InventoryType.PLAYER] = { _, _, uniqueId -> PlayerInventory(uniqueId) }
     }
 
