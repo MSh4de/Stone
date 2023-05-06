@@ -9,6 +9,6 @@ class AxolotlPacketOutEntityLocation(val entity: Entity): AxolotlPacketOut {
 
     override fun write(compoundBinaryTag: CompoundBinaryTag) {
         compoundBinaryTag.putString("entity", entity.uniqueId.toString())
-        compoundBinaryTag.putBinaryTag("location", LocationBinaryTagMarshal.serialize(entity.location))
+        compoundBinaryTag.putBinaryTag("location", LocationBinaryTagMarshal.serialize(entity.getLocation()))
     }
 }

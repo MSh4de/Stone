@@ -13,7 +13,7 @@
     <artifactId>stone</artifactId>
 
     <properties>
-        <kotlin.version>1.7.10</kotlin.version>
+        <kotlin.version>1.7.21</kotlin.version>
     </properties>
 
     <build>

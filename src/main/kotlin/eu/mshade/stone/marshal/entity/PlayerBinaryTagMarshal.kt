@@ -13,11 +13,11 @@ object PlayerBinaryTagMarshal {
 
     fun serialize(player: Player, metadataKeyValueBufferRegistry: MetadataKeyValueBufferRegistry): BinaryTag<*>{
         val compoundBinaryTag = CompoundBinaryTag()
-        compoundBinaryTag.putBinaryTag("gameProfile", GameProfileBinaryTagMarshal.serialize(player.gameProfile))
-        compoundBinaryTag.putBinaryTag("minecraftProtocolVersion", MinecraftProtocolVersionBinaryTagMarshal.serialize(player.minecraftProtocolVersion))
-        compoundBinaryTag.putBinaryTag("inetSocketAddress", InetSocketAdressBinaryTagMarshal.serialize(player.inetSocketAddress))
-        compoundBinaryTag.putBinaryTag("metadataKeyValueBucket", metadataKeyValueBufferRegistry.serialize(player.metadataKeyValueBucket))
-        compoundBinaryTag.putBinaryTag("location", LocationBinaryTagMarshal.serialize(player.location))
+        compoundBinaryTag.putBinaryTag("gameProfile", GameProfileBinaryTagMarshal.serialize(player.gameProfile!!))
+        compoundBinaryTag.putBinaryTag("minecraftProtocolVersion", MinecraftProtocolVersionBinaryTagMarshal.serialize(player.minecraftProtocolVersion!!))
+        compoundBinaryTag.putBinaryTag("inetSocketAddress", InetSocketAdressBinaryTagMarshal.serialize(player.inetSocketAddress!!))
+        compoundBinaryTag.putBinaryTag("metadataKeyValueBucket", metadataKeyValueBufferRegistry.serialize(player.metadata))
+        compoundBinaryTag.putBinaryTag("location", LocationBinaryTagMarshal.serialize(player.getLocation()))
         return compoundBinaryTag
     }
 
