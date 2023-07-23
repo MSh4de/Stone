@@ -68,17 +68,6 @@ class AxisBlockMetadataBuffer: MetadataKeyValueBuffer{
 
 }
 
-class PoweredBlockMetadataBuffer: MetadataKeyValueBuffer{
-
-    override fun read(binaryTag: BinaryTag<*>): MetadataKeyValue<*> {
-        return PoweredBlockMetadata(binaryTag.value as Boolean)
-    }
-
-    override fun write(metadataKeyValue: MetadataKeyValue<*>): BinaryTag<*> {
-        return BooleanBinaryTag((metadataKeyValue as PoweredBlockMetadata).metadataValue)
-    }
-
-}
 
 
 class PowerBlockMetadataBuffer: MetadataKeyValueBuffer{

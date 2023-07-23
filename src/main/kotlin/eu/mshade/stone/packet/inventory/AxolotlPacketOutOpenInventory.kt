@@ -5,7 +5,6 @@ import eu.mshade.axolotl.protocol.AxolotlPacketOut
 import eu.mshade.axolotl.protocol.AxolotlSession
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.inventory.Inventory
-import eu.mshade.enderframe.inventory.InventoryRepository
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag
 import java.util.*
 
@@ -18,9 +17,6 @@ class AxolotlPacketInOpenInventory: AxolotlPacketIn {
     override fun read(axolotlSession: AxolotlSession, compoundBinaryTag: CompoundBinaryTag) {
         this.axolotlSession = axolotlSession
         val uid = compoundBinaryTag.getString("inventoryUid")
-        if (uid != null) {
-            this.inventory = InventoryRepository.getInventory(uid)
-        }
         this.playerUid = UUID.fromString(compoundBinaryTag.getString("playerUid"))
     }
 }
@@ -29,6 +25,5 @@ class AxolotlPacketOutOpenInventory(val player: Player, val inventory: Inventory
 
     override fun write(compoundBinaryTag: CompoundBinaryTag) {
         compoundBinaryTag.putString("playerUid", player.uniqueId.toString())
-        compoundBinaryTag.putString("inventoryUid", inventory.uniqueId.toString())
     }
 }
